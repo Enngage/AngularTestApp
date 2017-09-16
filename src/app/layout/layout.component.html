@@ -1,0 +1,60 @@
+<td-layout>
+    <td-navigation-drawer flex sidenavTitle="Covalent" logo="assets:teradata" name="Firstname Lastname" email="firstname.lastname@company.com">
+      <md-nav-list>
+        <a *ngFor="let item of routes" [routerLink]="item.route" md-list-item><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
+      </md-nav-list>
+      <div td-navigation-drawer-menu>
+        <md-nav-list>
+          <a *ngFor="let item of routes" [routerLink]="item.route" md-list-item><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
+        </md-nav-list>
+      </div>
+    </td-navigation-drawer>
+    <td-layout-nav color="accent">
+      <div td-toolbar-content layout="row" layout-align="start center" flex>
+        <button md-icon-button td-menu-button tdLayoutToggle>
+          <md-icon>menu</md-icon>
+        </button>
+        <md-icon [routerLink]="['/']" class="md-icon-logo cursor-pointer" svgIcon="assets:teradata"></md-icon>
+        <span [routerLink]="['/']" class="cursor-pointer">Covalent</span>
+        <span flex></span>
+        <a md-icon-button mdTooltip="Docs" href="https://teradata.github.io/covalent/" target="_blank"><md-icon>chrome_reader_mode</md-icon></a>
+        <a md-icon-button mdTooltip="Github" href="https://github.com/teradata/covalent" target="_blank"><md-icon svgIcon="assets:github"></md-icon></a>
+      </div>
+      <td-layout-manage-list #manageList
+              [opened]="media.registerQuery('gt-sm') | async"
+              [mode]="(media.registerQuery('gt-sm') | async) ? 'side' :  'over'"
+              [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '257px' : '100%'">
+        <md-toolbar td-sidenav-content>
+          <span>Optional Title</span>
+        </md-toolbar>
+        <md-nav-list td-sidenav-content [tdLayoutManageListClose]="!media.query('gt-sm')">
+          <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+            <a md-list-item [routerLink]="item.route">
+              <md-icon mdListIcon>{{item.icon}}</md-icon> {{item.title}}
+            </a>
+          </ng-template>
+        </md-nav-list>
+        <md-toolbar>
+          <div layout="row" layout-align="start center" flex>
+            <button md-icon-button tdLayoutManageListOpen [hideWhenOpened]="true">
+              <md-icon>arrow_back</md-icon>
+            </button>
+            <span>Content Title</span>
+            <span flex></span>
+            <button md-icon-button><md-icon>settings</md-icon></button>
+          </div>
+        </md-toolbar>
+        <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+         <router-outlet></router-outlet>
+        </div>
+        <td-layout-footer-inner>
+          Optional inner footer
+        </td-layout-footer-inner>
+      </td-layout-manage-list>
+      <td-layout-footer>
+        <div layout="row" layout-align="start center">
+          <span class="md-caption">Copyright &copy; 2017 Teradata. All rights reserved</span>
+        </div>
+      </td-layout-footer>
+    </td-layout-nav>
+  </td-layout>
